@@ -16,9 +16,7 @@ export class EventService {
     }
     let authHeader = new Headers();
     let token = localStorage.getItem('access_token');
-    console.log(localStorage.getItem('access_token'));
     authHeader.append('Authorization', 'Bearer ' + token);
-    console.log(authHeader);
     return this.http.get(this.BASE_URL, {
       headers: authHeader
     })
@@ -35,7 +33,6 @@ export class EventService {
   }
 
   private handleError(): Promise<any> {
-    console.error('An error occurred'); // for demo purposes only
     return Promise.reject("error");
   }
 

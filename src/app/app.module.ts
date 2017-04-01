@@ -6,13 +6,13 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { RouterModule } from '@angular/router';
-import { EventsComponent } from './events/events.component'; 
+import { EventsComponent } from './events/events.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    EventsComponent
+    EventsComponent,
   ],
   imports: [
     BrowserModule,
