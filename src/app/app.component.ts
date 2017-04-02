@@ -27,7 +27,7 @@ export class AppComponent implements OnInit {
     localStorage.removeItem('currentUser');
     this.eventService.getEventsWithAuth();
     //this.eventsComponent.getEvents();
-    this.router.navigate(['']);
+    this.router.navigate(['/events']);
   }
 
   ngOnInit(): void {
