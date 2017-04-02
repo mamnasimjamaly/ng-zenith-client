@@ -36,6 +36,7 @@ export class EventsComponent implements OnInit {
     this.currentYear = new Date().getFullYear();
     this.eventsByDay = [];
     this.dates = [];
+    this.events = [];
   }
 
   getEvents(): void {
@@ -64,8 +65,6 @@ export class EventsComponent implements OnInit {
     //console.log(this.convertDateToString(dateX));
     
     this.dates.forEach(d =>{
-      console.log(this.convertDateToString(d));
-      console.log(this.convertDateToString(date));
       if(this.convertDateToString(d) == this.convertDateToString(date)) {
         return true;
       }      
@@ -87,33 +86,19 @@ export class EventsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getEvents();
-    //this.groupEventsByDay();
   }
 
   getWeek(date: Date): number {
-
-    // Create a copy of this date object  
     date = new Date(date);
     let target = date;
-
-    // ISO week date weeks start on monday, so correct the day number  
-
     var dayNr = (date.getDay() + 6) % 7;
 
-    // Set the target to the thursday of this week so the  
-    // target date is in the right year  
     target.setDate(target.getDate() - dayNr + 3);
-
-    // ISO 8601 states that week 1 is the week with january 4th in it  
     let jan4 = new Date(target.getFullYear(), 0, 4);
-
-    // Number of days between target date and january 4th  
     var dayDiff = (target.getTime() - jan4.getTime()) / 86400000;
 
     if (new Date(target.getFullYear(), 0, 1).getDay() < 5) {
-      // Calculate week number: Week 1 (january 4th) plus the    
-      // number of weeks between target date and january 4th    
-      return 1 + Math.ceil(dayDiff / 7);
+       return 1 + Math.ceil(dayDiff / 7);
     }
     else {  // jan 4th is on the next week (so next week is week 1)
       return Math.ceil(dayDiff / 7);
@@ -128,6 +113,7 @@ export class EventsComponent implements OnInit {
       if (weekNo == this.currentWeek) {
         this.events1.push(e);
       }
+      console.log(this.events);
     }
     //console.log(this.weekNumbers);
     this.disablePrevBtn = (this.currentWeek <= this.findMinWeek());
@@ -207,7 +193,6 @@ export class EventsComponent implements OnInit {
       if (e.weekNo > max)
         max = e.weekNo;
     }
-    console.log("max " + max);
     return max;
   }
   //to do
@@ -217,7 +202,15 @@ export class EventsComponent implements OnInit {
       if (min > e.weekNo)
         min = e.weekNo;
     }
-    console.log(min);
     return min;
+  }
+
+  statusNextBtn() : boolean{
+   
+    return localStorage.getItem('access_token') == undefined || this.disableNextBtn;
+  }
+
+  statusPrevBtn() : boolean{
+    return localStorage.getItem('access_token') == undefined || this.disablePrevBtn;
   }
 }

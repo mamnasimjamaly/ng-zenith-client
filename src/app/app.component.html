@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container-fluid">
     <div class="navbar-header">
       <a class="navbar-brand" href="#">ZenithSociety</a>
@@ -7,9 +7,8 @@
       <li><a routerLink="/events">Events</a></li>
       <li *ngIf= "!checkLoggedIn()"> <a routerLink="/login">Login</a></li>
       <li *ngIf= "checkLoggedIn()"> <a (click)="logout()" href= "#" >Logout</a></li>
-    </ul>
-    
-      
+    </ul>     
   </div>
 </nav>
+<h1 class="welcomeMsg text-center"> Welcome to <span class="zenithSociety">Zenith Society</span></h1>
 <router-outlet></router-outlet>

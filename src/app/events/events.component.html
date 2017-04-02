@@ -5,41 +5,24 @@
   Year:{{currentYear}} Week Number: {{currentViewWeek}} <span [hidden]="currentViewWeek != currentWeek">(Current Week)</span>
 </h3>
 
-<button (click)="clickPreviousBtn()" [disabled]="disablePrevBtn" type="button" class="btn btn-default" aria-label="Left Align">
+<button (click)="clickPreviousBtn()" [disabled]="statusPrevBtn()" type="button" class="btn btn-default" aria-label="Left Align">
   <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
 </button>
 
-<button (click)="clickNextBtn()" [disabled]="disableNextBtn" type="button" class="btn btn-default pull-right" aria-label="Left Align">
+<button (click)="clickNextBtn()" [disabled]="statusNextBtn()" type="button" class="btn btn-default pull-right" aria-label="Left Align">
   <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
 </button>
 <div class="container container-fluid">
 
-  <!--<table class="table table-striped">
-    <thead>
-      <tr>
-        <th>Date/Day</th>
-        <th>From</th>
-        <th>To</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let c of events1">
-        
-        <td>{{c.eventDateTimeFrom | date: 'MMMM d, EEEE'}}</td>
-        <td>{{c.eventDateTimeFrom | date: 'hh:mm a'}}</td>
-        <td>{{c.eventDateTimeTo | date: 'hh:mm a'}}</td>
-        <td>{{c.activity.activityDescription}}</td>
-    </tbody>
-  </table>
-</div>-->
-
 <div *ngFor="let ed of getEventsByDayByWeekNo(currentViewWeek)" class = "table">
- <h5 class= "text-center">{{ed.date | date: 'EEEE, MMMM d'}}</h5>
- <table class = "table table-striped">
+ <table class = "table">
+ <tr class= "dateForSchedule">
+   <td colspan="2">{{ed.date | date: 'EEEE, MMMM d'}}</td>     
+   </tr>
   <tr *ngFor="let e of ed.events">
-    <td>{{e.eventDateTimeFrom | date: 'hh:mm a'}} - {{e.eventDateTimeTo | date: 'hh:mm a'}}</td> 
-    <td> {{e.activityDescr}} </td>
+    <td class="eventTime">{{e.eventDateTimeFrom | date: 'hh:mm a'}} - {{e.eventDateTimeTo | date: 'hh:mm a'}}</td> 
+    <td class="activityDescr"> {{e.activityDescr}} </td>
     </tr>
  </table>
 </div>
+<h3 class = "text-center text-info" *ngIf = "events1.length == 0" >No events availabe for this period</h3>
