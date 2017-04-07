@@ -46,13 +46,12 @@ export class EventsComponent implements OnInit {
   }
 
   getAllDates() : void {
-    //this.dates =[];
+    this.dates =[];
     for(let e of this.events) {
       if(!this.dates.some(d => this.convertDateToString(d) == this.convertDateToString(e.eventDateTimeFrom))) {
         this.dates.push(new Date(e.eventDateTimeFrom));
       }
     }
-    console.log(this.dates);
   }
 
   convertDateToString(date: Date) : string {
@@ -61,9 +60,6 @@ export class EventsComponent implements OnInit {
   }
 
   dateExists(date : Date) : boolean {
-    //let dateX = new Date(date);
-    //console.log(this.convertDateToString(dateX));
-    
     this.dates.forEach(d =>{
       if(this.convertDateToString(d) == this.convertDateToString(date)) {
         return true;
@@ -72,10 +68,7 @@ export class EventsComponent implements OnInit {
     return false;
   }
 
-
-
-
-  findDescById(id: number): string {
+findDescById(id: number): string {
     for (let a of this.activities) {
       if (a.activityId == id) {
         return a.activityDescription;
@@ -109,13 +102,11 @@ export class EventsComponent implements OnInit {
     for (let e of eventsList) {
       let weekNo = this.getWeek(e.eventDateTimeFrom);
       this.weekNumbers.push(new EventIdWeekNumber(e, weekNo));
-      //console.log(currentWeekNumber);
       if (weekNo == this.currentWeek) {
         this.events1.push(e);
       }
-      console.log(this.events);
+      //console.log(this.events);
     }
-    //console.log(this.weekNumbers);
     this.disablePrevBtn = (this.currentWeek <= this.findMinWeek());
     this.disableNextBtn = (this.currentWeek >= this.findMaxWeek());
     this.getAllDates();
@@ -124,8 +115,6 @@ export class EventsComponent implements OnInit {
 
   clickPreviousBtn(): void {
     this.currentViewWeek--;
-    //console.log(this.currentViewWeek + " current view week");
-    //console.log("prev");
     if (this.findMinWeek() >= this.currentViewWeek && (this.currentWeek >= this.currentViewWeek)) {
       this.disablePrevBtn = true;
 
@@ -136,20 +125,17 @@ export class EventsComponent implements OnInit {
 
   clickNextBtn(): void {
     this.currentViewWeek++;
-    //console.log(this.currentViewWeek + " current view week");
-    //console.log("next");
     if (this.findMaxWeek() <= this.currentViewWeek && (this.currentWeek <= this.currentViewWeek)) {
       this.disableNextBtn = true;
 
     }
     this.disablePrevBtn = false;
     this.getEventsByWeekNo(this.currentViewWeek);
-    //console.log(this.events1);
   }
 
   getEventsByWeekNo(weekNo: number): void {
     this.events1 = [];
-    console.log("From get events " + weekNo);
+    //console.log("From get events " + weekNo);
     for (let e of this.weekNumbers) {
       if (e.weekNo == weekNo) {
         this.events1.push(e.event);
@@ -170,7 +156,7 @@ export class EventsComponent implements OnInit {
         evDay.events.push(e);
       }
     });
-    console.log(this.eventsByDay);
+    //console.log(this.eventsByDay);
   }
 
   getEventsByDayByWeekNo(weekNo : number) : EventsByDay[] {
@@ -205,8 +191,7 @@ export class EventsComponent implements OnInit {
     return min;
   }
 
-  statusNextBtn() : boolean{
-   
+  statusNextBtn() : boolean{ 
     return localStorage.getItem('access_token') == undefined || this.disableNextBtn;
   }
 

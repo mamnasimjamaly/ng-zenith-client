@@ -26,7 +26,6 @@ export class AppComponent implements OnInit {
     localStorage.removeItem('access_token');
     localStorage.removeItem('currentUser');
     this.eventService.getEventsWithAuth();
-    //this.eventsComponent.getEvents();
     this.router.navigate(['/events']);
   }
 
